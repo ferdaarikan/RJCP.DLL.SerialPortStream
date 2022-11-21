@@ -12,10 +12,7 @@ jobs:
     steps:        
     - uses: actions/checkout@v3
  
-    - name: ls1
-      run: ls -all    
- 
     - name: Build
       working-directory: dll/serialunix
-      run: ls -all
+      run: ./build.sh
       
