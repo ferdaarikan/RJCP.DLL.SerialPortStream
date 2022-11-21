@@ -14,5 +14,5 @@ jobs:
  
     - name: Build
       working-directory: dll/serialunix
-      run: build.sh 
+      run: dll/serialunix/build.sh 
       
