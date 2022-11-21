@@ -4,21 +4,24 @@ on: [push]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        
+    runs-on: ${{ matrix.os }}
     env:
       APP_VERSION: 1.0.${{ github.run_number }}
 
     steps:        
     - uses: actions/checkout@v3
  
-    - name: Build
+    - name: Build libnserial
       working-directory: dll/serialunix
       run: ./build.sh
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: library
+        name: lib-${{ matrix.os }}
         path: dll/serialunix/bin      
       if: ${{ always() }}
