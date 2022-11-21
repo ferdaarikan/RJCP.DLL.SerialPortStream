@@ -16,3 +16,11 @@ jobs:
       working-directory: dll/serialunix
       run: ./build.sh
       
+/home/runner/work/RJCP.DLL.SerialPortStream/RJCP.DLL.SerialPortStream/dll/serialunix/build
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: library
+        path: build      
+      if: ${{ always() }}
