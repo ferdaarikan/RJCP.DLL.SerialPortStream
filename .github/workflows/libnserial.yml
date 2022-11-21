@@ -13,6 +13,6 @@ jobs:
     - uses: actions/checkout@v3
  
     - name: Build
-      working-directory: serialportstream/dll/serialunix
+      working-directory: RJCP.DLL.SerialPortStream/dll/serialunix
       run: build.sh 
       
