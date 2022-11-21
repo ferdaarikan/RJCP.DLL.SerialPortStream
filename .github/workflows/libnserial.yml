@@ -20,5 +20,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: library
-        path: bin      
+        path: dll/serialunix/bin      
       if: ${{ always() }}
