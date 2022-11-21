@@ -15,8 +15,6 @@ jobs:
     - name: Build
       working-directory: dll/serialunix
       run: ./build.sh
-      
-/home/runner/work/RJCP.DLL.SerialPortStream/RJCP.DLL.SerialPortStream/dll/serialunix/build
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
