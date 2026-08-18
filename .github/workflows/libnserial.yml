@@ -1,6 +1,8 @@
 name: build libnserial for linux
  
-on: [push]
+on: 
+ push:
+ workflow_dispatch: 
 
 jobs:
   build:
