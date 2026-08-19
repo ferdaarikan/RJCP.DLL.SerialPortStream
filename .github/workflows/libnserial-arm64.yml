@@ -1,0 +1,40 @@
+name: Build libnserial for ARM64 Alpine
+
+on:
+  push:
+    branches: [ "main" ] # Change this to your default branch name if different
+  workflow_dispatch:      # Allows you to trigger the build manually from the GitHub UI
+
+jobs:
+  build-arm64:
+    # Uses GitHub's native ARM64 Linux runner for maximum speed
+    runs-on: ubuntu-24.04-arm64
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Build using build.sh inside Alpine Container
+        run: |
+          # We run an Alpine container and mount the current repository workspace into it
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspace \
+            alpine:3.20 /bin/sh -c "
+              # Install compilation tools and bash (required by build.sh)
+              apk add --no-cache bash cmake make gcc g++ musl-dev linux-headers &&
+              
+              # Navigate to the directory containing build.sh
+              cd /workspace/dll/serialunix &&
+              
+              # Ensure the script has execution permissions and run it
+              chmod +x build.sh &&
+              ./build.sh
+            "
+
+      # This step grabs the compiled .so files so you can download them from the GitHub Actions dashboard
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: libnserial-alpine-arm64
+          path: |
+            dll/serialunix/bin/**/libnserial.so*
